@@ -19,7 +19,8 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     {--models : Export models}
     {--controllers : Export controllers}
     {--policies : Export policies}    
-    {--only-default :  Fill only default policies}    
+    {--only-default :  Fill only default policies} 
+    {--observers : Export observers}   
     ';
 
 
@@ -70,6 +71,12 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
         "Admin" => ["AlbumTagController"],
     ];
 
+    /**
+     * Создание наблюдателей
+     *
+     * @var array
+     */
+    protected $observers = ["AlbumTagObserver"];
 
     /**
      * Create a new command instance.
@@ -100,6 +107,10 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
 
         if ($this->option("controllers") || $all) {
             $this->exportControllers("Admin");
+        }
+
+        if ($this->option("observers") || $all) {
+            $this->exportObservers();
         }
 
         return 0;

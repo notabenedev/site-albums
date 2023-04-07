@@ -13,6 +13,6 @@ return [
     "albumTagAdminRoutes" => true,
     "albumTagSiteRoutes" => true,
 
-
+    "albumTagFacade" => \Notabenedev\SiteAlbums\Helpers\AlbumTagActionsManager::class,
 
 ];

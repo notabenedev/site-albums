@@ -7,6 +7,7 @@
                             {--all : Run all}
                             {--models : Export models}
                             {--controllers : Export models}
+                            {--observers : Export observers}
                             {--policies : Export policies}
                             {--only-default : preset only default rules}
     npm run dev
