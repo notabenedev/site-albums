@@ -54,6 +54,7 @@ class AlbumsServiceProvider extends ServiceProvider
         // Подключение метатегов.
         $seo = app()->config["seo-integration.models"];
         $seo["album-tags"] = AlbumTag::class;
+        $seo["albums"] = Album::class;
         app()->config["seo-integration.models"] = $seo;
 
     }

@@ -48,7 +48,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
      * The models to  be exported
      * @var array
      */
-    protected $models = ["AlbumTag"];
+    protected $models = ["AlbumTag", "Album"];
 
     /**
      * Policies

@@ -25,4 +25,14 @@ class AlbumTag extends Model
         parent::booting();
     }
 
+    /**
+     * Альбомы по тегу
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function albums()
+    {
+        return $this->belongsToMany(\App\Album::class)
+            ->withTimestamps();
+    }
 }
