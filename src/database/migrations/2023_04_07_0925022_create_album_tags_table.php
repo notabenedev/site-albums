@@ -18,8 +18,6 @@ class CreateAlbumTagsTable extends Migration
             $table->string("title");
             $table->string("slug")
                 ->unique();
-            $table->string('main_image')
-                ->nullable();
             $table->longText("description")
                 ->nullable();
             $table->unsignedBigInteger("priority")
