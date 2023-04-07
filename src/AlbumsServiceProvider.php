@@ -14,7 +14,9 @@ class AlbumsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->mergeConfigFrom(
+            __DIR__.'/config/site-albums.php', 'site-albums'
+        );
     }
 
     /**
@@ -24,6 +26,12 @@ class AlbumsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Публикация конфигурации
+        $this->publishes([
+            __DIR__.'/config/site-albums.php' => config_path('site-albums.php')
+        ], 'config');
 
+        // Подключение миграции
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 }
