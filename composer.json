@@ -1,0 +1,30 @@
+{
+    "name": "notabenedev/site-albums",
+    "description": "Add albums and tags to site",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "N.Borisova",
+            "email": "n.borisova@me.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "portedcheese/base-settings": "@dev",
+        "portedcheese/seo-integration": "@dev",
+        "portedcheese/admin-site-menu": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Notabenedev\\SiteAlbums\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Notabenedev\\SiteAlbums\\AlbumsServiceProvider"
+            ]
+        }
+    }
+}
