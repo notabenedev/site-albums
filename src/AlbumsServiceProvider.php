@@ -3,6 +3,7 @@
 namespace Notabenedev\SiteAlbums;
 
 use Illuminate\Support\ServiceProvider;
+use Notabenedev\SiteAlbums\Console\Commands\AlbumsMakeCommand;
 
 
 class AlbumsServiceProvider extends ServiceProvider
@@ -33,5 +34,12 @@ class AlbumsServiceProvider extends ServiceProvider
 
         // Подключение миграции
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+
+        // Console
+        if ($this->app->runningInConsole()){
+            $this->commands([
+                AlbumsMakeCommand::class,
+            ]);
+        }
     }
 }
