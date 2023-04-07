@@ -20,6 +20,9 @@ class Album extends Model
         "title",
         "slug",
         "description",
+        "author",
+        "accent",
+        "info",
         "priority",
     ];
 

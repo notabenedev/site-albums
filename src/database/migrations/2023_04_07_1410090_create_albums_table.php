@@ -22,9 +22,21 @@ class CreateAlbumsTable extends Migration
             $table->string("slug", 100)
                 ->comment("Slug альбома");
 
-            $table->text("description")
+            $table->longText("description")
                 ->nullable()
-                ->comment("Описание альбома");
+                ->comment("Описание");
+
+            $table->string("person")
+                ->nullable()
+                ->comment("Автор");
+
+            $table->tinyText("accent")
+                ->nullable()
+                ->comment("Особенность");
+
+            $table->text("info")
+                ->nullable()
+                ->comment("Подробности");
 
             $table->unsignedBigInteger("priority")
                 ->default(0)
