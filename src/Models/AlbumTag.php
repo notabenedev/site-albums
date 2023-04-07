@@ -18,7 +18,7 @@ class AlbumTag extends Model
         "description",
     ];
 
-    protected $metaKey = "album_tags";
+    protected $metaKey = "album-tags";
 
     protected static function booting() {
 

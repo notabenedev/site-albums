@@ -10,8 +10,8 @@ return [
 
     "siteBreadcrumb" => true,
 
-    "albumsAdminRoutes" => true,
-    "albumsSiteRoutes" => true,
+    "albumTagAdminRoutes" => true,
+    "albumTagSiteRoutes" => true,
 
 
 

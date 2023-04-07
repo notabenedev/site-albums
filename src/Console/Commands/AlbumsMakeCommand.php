@@ -17,6 +17,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     protected $signature = 'make:albums
     {--all : Run all}
     {--models : Export models}
+    {--controllers : Export controllers}
     {--policies : Export policies}    
     {--only-default :  Fill only default policies}    
     ';
@@ -63,6 +64,14 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     ];
 
     /**
+     * Make Controllers
+     */
+    protected $controllers = [
+        "Admin" => ["AlbumTagController"],
+    ];
+
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -87,6 +96,10 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
 
         if ($this->option("policies") || $all) {
             $this->makeRules();
+        }
+
+        if ($this->option("controllers") || $all) {
+            $this->exportControllers("Admin");
         }
 
         return 0;

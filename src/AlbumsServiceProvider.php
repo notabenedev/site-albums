@@ -2,6 +2,7 @@
 
 namespace Notabenedev\SiteAlbums;
 
+use App\AlbumTag;
 use Illuminate\Support\ServiceProvider;
 use Notabenedev\SiteAlbums\Console\Commands\AlbumsMakeCommand;
 
@@ -41,5 +42,19 @@ class AlbumsServiceProvider extends ServiceProvider
                 AlbumsMakeCommand::class,
             ]);
         }
+
+        //Подключаем роуты
+        if (config("site-albums.albumTagAdminRoutes")) {
+            $this->loadRoutesFrom(__DIR__."/routes/admin/album-tag.php");
+        }
+
+        // Подключение шаблонов.
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'site-albums');
+
+        // Подключение метатегов.
+        $seo = app()->config["seo-integration.models"];
+        $seo["album-tags"] = AlbumTag::class;
+        app()->config["seo-integration.models"] = $seo;
+
     }
 }
