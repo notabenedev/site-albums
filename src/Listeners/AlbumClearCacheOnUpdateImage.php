@@ -27,7 +27,7 @@ class AlbumClearCacheOnUpdateImage
     {
         $morph = $event->morph;
         if (!empty($morph) && get_class($morph) == Album::class) {
-            $morph->forgetCache();
+            $morph->clearCache();
             $tags = $morph->tags;
             foreach ($tags as $tag){
                 // Очистить id альбомов

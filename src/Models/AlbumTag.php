@@ -32,7 +32,20 @@ class AlbumTag extends Model
      */
     public function albums()
     {
-        return $this->belongsToMany(\App\Album::class)
+        return $this->belongsToMany(\App\Album::class)->orderBy("priority")
             ->withTimestamps();
+    }
+
+    /**
+     * Model's tree
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     *
+     */
+    public static function getAll(){
+        $query = self::query();
+        return $query
+            ->orderBy("priority")
+            ->get();
     }
 }

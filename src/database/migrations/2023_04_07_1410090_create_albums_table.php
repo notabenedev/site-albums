@@ -46,6 +46,10 @@ class CreateAlbumsTable extends Migration
                 ->nullable()
                 ->comment("Обложка альбома");
 
+            $table->dateTime("published_at")
+                ->nullable()
+                ->comment('Дата публикации');
+
             $table->timestamps();
         });
     }

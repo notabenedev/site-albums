@@ -24,4 +24,14 @@
             </div>
         </div>
     </div>
+    @if (count($tag->albums))
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ config("site-albums.siteAlbumName") }}</h5>
+                </div>
+                @include("site-albums::admin.albums.includes.table-list", ["albumsList" => $tag->albums])
+            </div>
+        </div>
+    @endif
 @endsection

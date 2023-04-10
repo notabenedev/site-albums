@@ -5,6 +5,7 @@ namespace Notabenedev\SiteAlbums\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Notabenedev\SiteAlbums\Facades\AlbumTagActions;
 use PortedCheese\BaseSettings\Traits\ShouldGallery;
 use PortedCheese\BaseSettings\Traits\ShouldImage;
 use PortedCheese\BaseSettings\Traits\ShouldSlug;
@@ -20,7 +21,7 @@ class Album extends Model
         "title",
         "slug",
         "description",
-        "author",
+        "person",
         "accent",
         "info",
         "priority",
@@ -53,19 +54,90 @@ class Album extends Model
     }
 
     /**
+     * Есть ли тег у альбома
+     *
+     * @param $id
+     * @return mixed
+     */
+
+    public function hasTag($id)
+    {
+        return $this->tags->where('id',$id)->count();
+    }
+
+    /**
+     * Обновить Теги
+     *
+     * @param $userInput
+     */
+    public function updateTags($userInput)
+    {
+        $tagIds = [];
+        foreach ($userInput as $key => $value) {
+            if (strstr($key, "check-") == false) {
+                continue;
+            }
+            $tagIds[] = $value;
+        }
+        $this->tags()->sync($tagIds);
+        $this->clearCache();
+    }
+
+    /**
+     * Change publish status
+     *
+     */
+    public function publish()
+    {
+        $this->published_at = $this->published_at  ? null : now();
+        $this->save();
+    }
+
+    /**
+     * Изменить дату создания.
+     *
+     * @param $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return datehelper()->changeTz($value);
+    }
+
+    /**
+     * Изменить дату публикации.
+     *
+     * @param $value
+     * @return string
+     */
+    public function getPublishedAtAttribute($value)
+    {
+        return datehelper()->changeTz($value);
+    }
+
+    /**
      * Данные для тизера.
      *
      * @return mixed
      */
-    public function getTeaserData()
+    public function getTeaserData($grid = 3)
     {
-        $key = "albumTeaserData:{$this->id}";
+        $key = "album-teaser:{$this->id}-{$grid}";
         $id = $this->id;
-        return Cache::rememberForever($key, function () use ($id) {
-            return \App\Album::query()
-                ->where("id", $id)
-                ->first();
+        $model = $this;
+        $album =  Cache::rememberForever($key, function () use ($model) {
+            $image = $model->image;
+            $tags = $model->tags;
+            $images = $model->images->sortBy('weight');
+            return $model;
         });
+
+        $view = view("site-albums::site.albums.teaser", [
+            'album' => $album,
+            'grid' => $grid,
+        ]);
+        return $view->render();
+
     }
 
     /**
@@ -73,6 +145,27 @@ class Album extends Model
      */
     public function clearCache()
     {
-        Cache::forget("albumTeaserData:{$this->id}");
+        foreach ($this->tags as $tag){
+            AlbumTagActions::forgetAlbumsIds($tag);
+        }
+
+        Cache::forget("album-teaser:{$this->id}-3");
+        Cache::forget("album-teaser:{$this->id}-4");
+
+        Cache::forget("albums-get-all-published");
     }
+
+    public static function getAllPublished()
+    {
+        $key = "albums-get-all-published";
+        return Cache::rememberForever($key, function()  {
+            $items = [];
+            $albums = \App\Album::query()->whereNotNull("published_at")->orderBy("priority");
+            foreach ($albums as $item) {
+                $items[$item->id] = $item;
+            }
+            return $items;
+        });
+    }
+
 }

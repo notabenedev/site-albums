@@ -2,6 +2,7 @@
 
 namespace Notabenedev\SiteAlbums;
 
+use App\Album;
 use App\AlbumTag;
 use App\Observers\Vendor\SiteAlbums\AlbumTagObserver;
 use Illuminate\Support\ServiceProvider;
@@ -56,9 +57,32 @@ class AlbumsServiceProvider extends ServiceProvider
         if (config("site-albums.albumTagAdminRoutes")) {
             $this->loadRoutesFrom(__DIR__."/routes/admin/album-tag.php");
         }
+        if (config("site-albums.albumAdminRoutes")) {
+            $this->loadRoutesFrom(__DIR__."/routes/admin/album.php");
+        }
 
         // Подключение шаблонов.
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'site-albums');
+
+        view()->composer([
+            "site-albums::admin.albums.create",
+            "site-albums::admin.albums.edit",
+
+        ], function ($view){
+            $tags = AlbumTag::getAll();
+            $view->with("tags", $tags);
+        });
+
+        // Подключаем изображения.
+        $imagecache = app()->config['imagecache.paths'];
+        $imagecache[] = 'storage/albums/main';
+        $imagecache[] = 'storage/gallery/album';
+        app()->config['imagecache.paths'] = $imagecache;
+
+        // Подключаем галерею.
+        $gallery = app()->config["gallery.models"];
+        $gallery["album"] =  Album::class;
+        app()->config["gallery.models"] = $gallery;
 
         // Подключение метатегов.
         $seo = app()->config["seo-integration.models"];

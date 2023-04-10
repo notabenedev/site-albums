@@ -4,7 +4,7 @@
             <div class="custom-control custom-checkbox">
                 <input class="custom-control-input"
                        type="checkbox"
-{{--                       {{ (! count($errors->all()) ) && (isset($album) && $album->hasTag($tag->id)) || old('check-' . $tag->id) ? "checked" : "" }}--}}
+                       {{ (! count($errors->all()) ) && (isset($album) && $album->hasTag($tag->id)) || old('check-' . $tag->id) ? "checked" : "" }}
                        value="{{ $tag->id }}"
                        id="check-{{ $tag->id }}"
                        name="check-{{ $tag->id }}">

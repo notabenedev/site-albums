@@ -8,9 +8,17 @@ return [
     "albumUrlName" => "album",
     "albumTagUrlName" => "tag",
 
+    "albumTitleName" => "Заголовок",
+    "albumDescriptionName" => "Описание",
+    "albumPersonName" => "Автор",
+    "albumAccentName" => "Акцент",
+    "albumInfoName" => "Дополнительно",
+    "albumGalleryName" => "Галерея",
+
     "siteBreadcrumb" => true,
 
     "albumTagAdminRoutes" => true,
+    "albumAdminRoutes" => true,
     "albumTagSiteRoutes" => true,
 
     "albumTagFacade" => \Notabenedev\SiteAlbums\Helpers\AlbumTagActionsManager::class,

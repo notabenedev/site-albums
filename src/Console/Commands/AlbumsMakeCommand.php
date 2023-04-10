@@ -62,13 +62,18 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
             "slug" => "album-tags",
             "policy" => "AlbumTagPolicy",
         ],
+        [
+            "title" => "Альбомы",
+            "slug" => "albums",
+            "policy" => "AlbumPolicy",
+        ],
     ];
 
     /**
      * Make Controllers
      */
     protected $controllers = [
-        "Admin" => ["AlbumTagController"],
+        "Admin" => ["AlbumTagController", "AlbumController"],
     ];
 
     /**
