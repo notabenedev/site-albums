@@ -21,6 +21,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     {--policies : Export policies}    
     {--only-default :  Fill only default policies} 
     {--observers : Export observers}   
+    {--menu : Create admin menu}
     ';
 
 
@@ -118,6 +119,45 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
             $this->exportObservers();
         }
 
+        if ($this->option("menu") || $all) {
+            $this->makeMenu();
+        }
+
         return 0;
+    }
+
+
+    protected function makeMenu()
+    {
+        try {
+            $menu = Menu::query()
+                ->where('key', 'admin')
+                ->firstOrFail();
+        }
+        catch (\Exception $e) {
+            return;
+        }
+
+        $title = config("site-albums.sitePackageName");
+        $itemData = [
+            'title' => $title,
+            'template' => "site-albums::admin.albums.includes.menu",
+            'url' => "#",
+            'ico' => 'far fa-images',
+            'menu_id' => $menu->id,
+        ];
+
+        try {
+            $menuItem = MenuItem::query()
+                ->where("menu_id", $menu->id)
+                ->where('title', $title)
+                ->firstOrFail();
+            $menuItem->update($itemData);
+            $this->info("Элемент меню '$title' обновлен");
+        }
+        catch (\Exception $e) {
+            MenuItem::create($itemData);
+            $this->info("Элемент меню '$title' создан");
+        }
     }
 }

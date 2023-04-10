@@ -10,4 +10,5 @@
                             {--observers : Export observers}
                             {--policies : Export policies}
                             {--only-default : preset only default rules}
+                            {--menu : preset only default rules}
     npm run dev
