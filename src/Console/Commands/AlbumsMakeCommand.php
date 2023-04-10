@@ -2,6 +2,7 @@
 
 namespace Notabenedev\SiteAlbums\Console\Commands;
 
+use App\Album;
 use App\Menu;
 use App\MenuItem;
 use PortedCheese\BaseSettings\Console\Commands\BaseConfigModelCommand;
@@ -22,6 +23,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     {--only-default :  Fill only default policies} 
     {--observers : Export observers}   
     {--menu : Create admin menu}
+    {--fill : Fill fixed albums from Config}
     ';
 
 
@@ -123,6 +125,24 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
             $this->makeMenu();
         }
 
+        if ($this->option("fill") || $all) {
+            foreach (config("site-albums.siteAlbumsFixed", []) as $slug => $title){
+                try {
+                    $album = Album::query()
+                        ->where("slug", $slug)
+                        ->where('title', $title)
+                        ->firstOrFail();
+                    $album->update(["title" => $title, "slug" => $slug]);
+                    if(! $album->published_at) $album->publish();
+                    $this->info("Альбом ".$title." обновлен");
+                }
+                catch (\Exception $e) {
+                    Album::create(["title" => $title, "slug" => $slug]);
+                    $album->publish();
+                    $this->info("Альбом ".$title." создан");
+                }
+            }
+        }
         return 0;
     }
 

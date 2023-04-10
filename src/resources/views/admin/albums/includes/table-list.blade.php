@@ -38,45 +38,52 @@
                                         </a>
                                     @endcan
                                     @can("delete", \App\Album::class)
-                                        <button type="button" class="btn btn-danger" data-confirm="{{ "delete-form-{$item->id}" }}">
+                                        <button type="button" class="btn btn-danger"
+                                                {{ $item->isFixed() ? "disabled" : "" }}
+                                                data-confirm="{{ "delete-form-{$item->id}" }}">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     @endcan
                                 </div>
-                                @can("publish", \App\Album::class)
+                                @can("update", \App\Album::class)
                                     <div class="btn-group btn-group-sm">
-                                        <button type="button" class="btn btn-{{ $item->published_at ? "success" : "secondary" }}" data-confirm="{{ "publish-form-{$item->id}" }}">
+                                        <button type="button"
+                                                class="btn btn-{{ $item->published_at ? "success" : "secondary" }}"
+                                                data-confirm="{{ "publish-form-{$item->id}" }}"
+                                                {{ $item->isFixed() ? "disabled" : "" }} >
                                             <i class="fas fa-toggle-{{ $item->published_at ? "on" : "off" }}"></i>
                                         </button>
                                     </div>
                                 @endcan
                             </div>
-                            @can("publish", \App\Album::class)
-                                <confirm-form :id="'{{ "publish-form-{$item->id}" }}'" text="Это изменит статус публикации" confirm-text="Да, изменить!">
-                                    <template>
-                                        <form action="{{ route('admin.albums.publish', ["album" => $item]) }}"
-                                              id="publish-form-{{ $item->id }}"
-                                              class="btn-group"
-                                              method="post">
-                                            @csrf
-                                            @method("put")
-                                        </form>
-                                    </template>
-                                </confirm-form>
-                            @endcan
-                            @can("delete", \App\Album::class)
-                                <confirm-form :id="'{{ "delete-form-{$item->id}" }}'">
-                                    <template>
-                                        <form action="{{ route('admin.albums.destroy', ["album" => $item]) }}"
-                                              id="delete-form-{{ $item->id }}"
-                                              class="btn-group"
-                                              method="post">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="DELETE">
-                                        </form>
-                                    </template>
-                                </confirm-form>
-                            @endcan
+                            @if(! $item->isFixed())
+                                @can("update", \App\Album::class)
+                                    <confirm-form :id="'{{ "publish-form-{$item->id}" }}'" text="Это изменит статус публикации" confirm-text="Да, изменить!">
+                                        <template>
+                                            <form action="{{ route('admin.albums.publish', ["album" => $item]) }}"
+                                                  id="publish-form-{{ $item->id }}"
+                                                  class="btn-group"
+                                                  method="post">
+                                                @csrf
+                                                @method("put")
+                                            </form>
+                                        </template>
+                                    </confirm-form>
+                                @endcan
+                                @can("delete", \App\Album::class)
+                                    <confirm-form :id="'{{ "delete-form-{$item->id}" }}'">
+                                        <template>
+                                            <form action="{{ route('admin.albums.destroy', ["album" => $item]) }}"
+                                                  id="delete-form-{{ $item->id }}"
+                                                  class="btn-group"
+                                                  method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="DELETE">
+                                            </form>
+                                        </template>
+                                    </confirm-form>
+                                @endcan
+                            @endif
                         </td>
                     @endcanany
                 </tr>

@@ -11,4 +11,5 @@
                             {--policies : Export policies}
                             {--only-default : preset only default rules}
                             {--menu : preset only default rules}
+                            {--fill : fill fixed albums from Config}
     npm run dev

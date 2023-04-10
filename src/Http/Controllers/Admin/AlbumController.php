@@ -112,16 +112,9 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        $fixed = false;
-        foreach (config("site-albums.siteAlbumsFixed") as $slug){
-            if($album->slug == $slug) {
-                $fixed = true;
-                break;
-            }
-        }
         return view("site-albums::admin.albums.edit", [
             'album' => $album,
-            'fixed' => $fixed,
+            'fixed' => $album->isFixed(),
         ]);
     }
 

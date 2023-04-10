@@ -168,4 +168,18 @@ class Album extends Model
         });
     }
 
+    /**
+     * Is fixed
+     *
+     * @return bool
+     */
+    public function isFixed(){
+        foreach (config("site-albums.siteAlbumsFixed") as $slug=> $title){
+            if($this->slug == $slug) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
