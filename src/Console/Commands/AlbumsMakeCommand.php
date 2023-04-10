@@ -77,6 +77,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
      */
     protected $controllers = [
         "Admin" => ["AlbumTagController", "AlbumController"],
+        "Site" => ["AlbumController"],
     ];
 
     /**
@@ -115,6 +116,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
 
         if ($this->option("controllers") || $all) {
             $this->exportControllers("Admin");
+            $this->exportControllers("Site");
         }
 
         if ($this->option("observers") || $all) {

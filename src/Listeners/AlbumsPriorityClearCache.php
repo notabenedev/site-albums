@@ -42,6 +42,6 @@ class AlbumsPriorityClearCache
                 }
             }
         }
-        Cache::forget("albums-getAll");
+        Cache::forget("albums-get-all-published");
     }
 }

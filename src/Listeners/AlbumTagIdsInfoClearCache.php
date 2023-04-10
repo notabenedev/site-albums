@@ -29,6 +29,6 @@ class AlbumTagIdsInfoClearCache
         $tag = $event->tag;
         // Очистить id альбомов
         AlbumTagActions::forgetAlbumsIds($tag);
-        Cache::forget("albums-getAll");
+        Cache::forget("albums-get-all-published");
     }
 }

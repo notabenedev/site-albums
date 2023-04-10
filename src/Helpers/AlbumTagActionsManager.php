@@ -2,6 +2,7 @@
 
 namespace Notabenedev\SiteAlbums\Helpers;
 
+use App\Album;
 use App\AlbumTag;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -70,12 +71,40 @@ class AlbumTagActionsManager
      * Хлебные крошки для сайта.
      *
      * @param AlbumTag $tag
+     * @param Album $album
      * @return array
      */
-    public function getSiteBreadcrumb(AlbumTag $tag)
+    public function getSiteBreadcrumb()
     {
-        $breadcrumb = null;
+        $breadcrumb = [];
 
+        $breadcrumb[] = (object) [
+            "title" => config("site-albums.sitePackageName"),
+            "url" => route("site.albums.index"),
+            "active" => false,
+        ];
+
+        $routeParams = Route::current()->parameters();
+        $isAlbumPage = ! empty($routeParams["album"]);
+        $isTagPage = ! empty($routeParams["tag"]);
+
+        if ($isTagPage){
+            $tag = $routeParams["tag"];
+            $breadcrumb[] = (object) [
+                "title" => $tag->title,
+                "url" => route("admin.album-tags.show", ["tag" => $tag]),
+                "active" => false,
+            ];
+        }
+
+        if ($isAlbumPage) {
+            $album = $routeParams["album"];
+            $breadcrumb[] = (object) [
+                "title" => $album->title,
+                "url" => route("admin.albums.show", ["album" => $album]),
+                "active" => true,
+            ];
+        }
         return $breadcrumb;
     }
 

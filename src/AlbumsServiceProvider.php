@@ -60,6 +60,12 @@ class AlbumsServiceProvider extends ServiceProvider
         if (config("site-albums.albumAdminRoutes")) {
             $this->loadRoutesFrom(__DIR__."/routes/admin/album.php");
         }
+        if (config("site-albums.albumTagSiteRoutes")) {
+            $this->loadRoutesFrom(__DIR__."/routes/site/album-tag.php");
+        }
+        if (config("site-albums.albumSiteRoutes")) {
+            $this->loadRoutesFrom(__DIR__."/routes/site/album.php");
+        }
 
         // Подключение шаблонов.
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'site-albums');
@@ -67,7 +73,6 @@ class AlbumsServiceProvider extends ServiceProvider
         view()->composer([
             "site-albums::admin.albums.create",
             "site-albums::admin.albums.edit",
-
         ], function ($view){
             $tags = AlbumTag::getAll();
             $view->with("tags", $tags);

@@ -35,7 +35,7 @@ class AlbumController extends Controller
             $title = trim($query->get('title'));
             $albums->where('title', 'LIKE', "%$title%");
         }
-        $albums->orderBy('created_at', 'desc');
+        $albums->orderBy('priority');
         return view("site-albums::admin.albums.index", [
             'albumsList' => $albums->paginate(self::PAGER)->appends($request->input()),
             'query' => $query,

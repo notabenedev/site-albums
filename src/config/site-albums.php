@@ -16,6 +16,8 @@ return [
     "albumGalleryName" => "Галерея",
 
     "siteBreadcrumb" => true,
+    "siteAlbumsGrid" => 3,
+    "siteAlbumGalleryGrid" => 4,
 
     "siteAlbumsFixed" => array(
 //        "slug" => "title",
@@ -24,6 +26,7 @@ return [
     "albumTagAdminRoutes" => true,
     "albumAdminRoutes" => true,
     "albumTagSiteRoutes" => true,
+    "albumSiteRoutes" => true,
 
     "albumTagFacade" => \Notabenedev\SiteAlbums\Helpers\AlbumTagActionsManager::class,
 

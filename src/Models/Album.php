@@ -120,15 +120,14 @@ class Album extends Model
      *
      * @return mixed
      */
-    public function getTeaserData($grid = 3)
+    public function getTeaserData($grid)
     {
-        $key = "album-teaser:{$this->id}-{$grid}";
+        $key = "album-teaser:{$this->id}-{$grid["number"]}";
         $id = $this->id;
         $model = $this;
         $album =  Cache::rememberForever($key, function () use ($model) {
             $image = $model->image;
             $tags = $model->tags;
-            $images = $model->images->sortBy('weight');
             return $model;
         });
 
@@ -160,7 +159,7 @@ class Album extends Model
         $key = "albums-get-all-published";
         return Cache::rememberForever($key, function()  {
             $items = [];
-            $albums = \App\Album::query()->whereNotNull("published_at")->orderBy("priority");
+            $albums = \App\Album::query()->whereNotNull("published_at")->orderBy("priority")->get();
             foreach ($albums as $item) {
                 $items[$item->id] = $item;
             }
@@ -182,4 +181,15 @@ class Album extends Model
         return false;
     }
 
+    /**
+     * Return grid
+     *
+     * @param int $grid
+     * @return array
+     */
+    public static function grid(int $grid){
+        $cols = $grid === 3 ? "col-sm-6 col-md-4 col-lg-3": "col-sm-6 col-lg-4";
+        $imgGrid = $grid === 3 ? ["lg-grid-3" => 992,"md-grid-4" => 768, "sm-grid-6" => 576] : ["lg-grid-4" => 992, "md-grid-6" => 768, "sm-grid-6" => 576];
+        return ["cols" => $cols, "grid" => $imgGrid, "number" => $grid];
+    }
 }
