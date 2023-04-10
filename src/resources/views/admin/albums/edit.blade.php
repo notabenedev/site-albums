@@ -36,7 +36,9 @@
                                id="slug"
                                name="slug"
                                value="{{ old('slug') ? old('slug') :$album->slug }}"
-                               class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}">
+                               class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}"
+                               {{ $fixed ? "readonly": "" }}
+                        >
                         @if ($errors->has('slug'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('slug') }}</strong>
@@ -65,12 +67,10 @@
 
                     <div class="form-group">
                         <label for="accent">{{ config("site-albums.albumAccentName") }}</label>
-                        <textarea class="form-control tiny"
+                        <textarea class="form-control"
                                   name="accent"
                                   id="accent"
-                                  rows="2">
-                            {{ old('accent') ? old('accent') :$album->accent }}
-                        </textarea>
+                                  rows="2">{{ old('accent') ? old('accent') :$album->accent }}</textarea>
                     </div>
 
                     <div class="form-group">

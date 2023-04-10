@@ -77,9 +77,7 @@
                         <textarea class="form-control {{ $errors->has('accent') ? ' is-invalid' : '' }}"
                                   name="accent"
                                   id="accent"
-                                  rows="2">
-                            {{ old('accent') }}
-                        </textarea>
+                                  rows="2">{{ old('accent') }}</textarea>
                         @if ($errors->has('accent'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('accent') }}</strong>

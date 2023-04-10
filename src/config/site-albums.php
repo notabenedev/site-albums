@@ -17,6 +17,8 @@ return [
 
     "siteBreadcrumb" => true,
 
+    "siteAlbumsFixed" => array("zagolovok"),
+
     "albumTagAdminRoutes" => true,
     "albumAdminRoutes" => true,
     "albumTagSiteRoutes" => true,
