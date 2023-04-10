@@ -236,5 +236,30 @@ class AlbumController extends Controller
 
     }
 
+    /**
+     * Приоритет.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function priority()
+    {
+        $collection = Album::query()
+            ->select("title", "id", "slug")
+            ->orderBy("priority")
+            ->get();
+        $priority = [];
+        foreach ($collection as $item) {
+            $priority[] = [
+                'name' => $item->title,
+                "id" => $item->id,
+                "url" => route("admin.albums.show", ["album" => $item])
+            ];
+        }
+        return view("site-albums::admin.albums.priority", [
+            'priority' => $priority
+        ]);
+    }
+
+
 
 }

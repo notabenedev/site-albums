@@ -10,6 +10,14 @@
                         </a>
                     </li>
                 @endcan
+                @can("update", \App\Album::class)
+                    <li class="nav-item">
+                        <a href="{{ route("admin.albums.priority") }}"
+                           class="nav-link{{ $currentRoute === "admin.albums.priority" ? " active" : "" }}">
+                            Приоритет
+                        </a>
+                    </li>
+                @endcan
                 @can("create", \App\Album::class)
                     <li class="nav-item">
                         <a href="{{ route("admin.albums.create") }}"

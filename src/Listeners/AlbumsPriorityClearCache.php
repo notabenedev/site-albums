@@ -33,7 +33,7 @@ class AlbumsPriorityClearCache
             if (! empty($ids)) {
                 $albums = Album::query()->whereIn("id", $ids)->get();
                 foreach ($albums as $album){
-                    $album->forgetCache();
+                    $album->clearCache();
                     $tags = $album->tags;
                     foreach ($tags as $tag){
                         // Очистить id альбомов

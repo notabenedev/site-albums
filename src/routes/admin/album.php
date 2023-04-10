@@ -12,6 +12,9 @@ Route::group([
         "prefix" => config("site-albums.albumUrlName"),
         "as" => "albums.",
     ],function (){
+        // Протритет
+        Route::get("/priority", [AlbumController::class,"priority"])->name("priority");
+        // Создание-обновление-удаление
         Route::get("/", [AlbumController::class, "index"])->name("index");
         Route::get("/create", [AlbumController::class, "create"])->name("create");
         Route::post("", [AlbumController::class, "store"])->name("store");
@@ -24,10 +27,6 @@ Route::group([
     // Публикация
     Route::put(config("site-albums.albumUrlName")."/{album}/publish", "AlbumController@publish")
         ->name("albums.publish");
-
-    // Изменить вес
-    Route::put(config("site-albums.albumUrlName")."/tree/priority", [AlbumController::class,"changeItemsPriority"])
-        ->name("albums.item-priority");
 
     Route::group([
         'prefix' => config("site-albums.albumUrlName").'/{album}',
