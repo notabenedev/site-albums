@@ -95,6 +95,9 @@ class AlbumsServiceProvider extends ServiceProvider
         $seo["albums"] = Album::class;
         app()->config["seo-integration.models"] = $seo;
 
+        // Filters
+        $this->extendImages();
+
         // Events
         $this->addEvents();
 
@@ -141,5 +144,15 @@ class AlbumsServiceProvider extends ServiceProvider
             $class = config("site-albums.albumTagFacade");
             return new $class;
         });
+    }
+    /**
+     * Стили для изображений.
+     */
+    private function extendImages()
+    {
+        $imagecache = app()->config['imagecache.templates'];
+
+        $imagecache['benefit'] = \Notabenedev\SiteAlbums\Filters\Benefit::class;
+        app()->config['imagecache.templates'] = $imagecache;
     }
 }

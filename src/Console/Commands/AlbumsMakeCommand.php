@@ -148,14 +148,13 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
                 try {
                     $album = Album::query()
                         ->where("slug", $slug)
-                        ->where('title', $title)
                         ->firstOrFail();
                     $album->update(["title" => $title, "slug" => $slug]);
                     if(! $album->published_at) $album->publish();
                     $this->info("Альбом ".$title." обновлен");
                 }
                 catch (\Exception $e) {
-                    Album::create(["title" => $title, "slug" => $slug]);
+                    $album = Album::create(["title" => $title, "slug" => $slug]);
                     $album->publish();
                     $this->info("Альбом ".$title." создан");
                 }

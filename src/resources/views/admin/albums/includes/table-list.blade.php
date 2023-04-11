@@ -23,7 +23,7 @@
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->slug }}</td>
                     <td>{{ $item->person }}</td>
-                    @canany(["view", "update", "delete", "publish"], \App\Album::class)
+                    @canany(["view", "update", "delete"], \App\Album::class)
                         <td>
                             <div role="toolbar" class="btn-toolbar">
                                 <div class="btn-group btn-group-sm mr-1">
@@ -50,26 +50,26 @@
                                         <button type="button"
                                                 class="btn btn-{{ $item->published_at ? "success" : "secondary" }}"
                                                 data-confirm="{{ "publish-form-{$item->id}" }}"
-                                                {{ $item->isFixed() ? "disabled" : "" }} >
+                                                >
                                             <i class="fas fa-toggle-{{ $item->published_at ? "on" : "off" }}"></i>
                                         </button>
                                     </div>
                                 @endcan
                             </div>
+                            @can("update", \App\Album::class)
+                                <confirm-form :id="'{{ "publish-form-{$item->id}" }}'" text="Это изменит статус публикации в разделе" confirm-text="Да, изменить!">
+                                    <template>
+                                        <form action="{{ route('admin.albums.publish', ["album" => $item]) }}"
+                                              id="publish-form-{{ $item->id }}"
+                                              class="btn-group"
+                                              method="post">
+                                            @csrf
+                                            @method("put")
+                                        </form>
+                                    </template>
+                                </confirm-form>
+                            @endcan
                             @if(! $item->isFixed())
-                                @can("update", \App\Album::class)
-                                    <confirm-form :id="'{{ "publish-form-{$item->id}" }}'" text="Это изменит статус публикации" confirm-text="Да, изменить!">
-                                        <template>
-                                            <form action="{{ route('admin.albums.publish', ["album" => $item]) }}"
-                                                  id="publish-form-{{ $item->id }}"
-                                                  class="btn-group"
-                                                  method="post">
-                                                @csrf
-                                                @method("put")
-                                            </form>
-                                        </template>
-                                    </confirm-form>
-                                @endcan
                                 @can("delete", \App\Album::class)
                                     <confirm-form :id="'{{ "delete-form-{$item->id}" }}'">
                                         <template>

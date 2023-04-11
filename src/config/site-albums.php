@@ -20,8 +20,9 @@ return [
     "siteAlbumGalleryGrid" => 4,
 
     "siteAlbumsFixed" => array(
-//        "slug" => "title",
+        "works" => "Наши работы",
     ),
+    "benefitBgColor" => 'fff',
 
     "albumTagAdminRoutes" => true,
     "albumAdminRoutes" => true,
