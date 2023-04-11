@@ -2,7 +2,7 @@
     <a href="{{ route('imagecache', ['template' => 'original', 'filename' => $image->file_name]) }}"
        data-lightbox="galleryGroup">
         <div class="card card-base h-100">
-            <div class="hover-image-scale">
+            <div class="album-image-scale">
                 @picLazy([
                 "image" => $image,
                 "lightbox" => "galleryGroup",

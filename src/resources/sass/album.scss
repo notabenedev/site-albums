@@ -1,0 +1,42 @@
+.album{
+
+  &-image-scale {
+    display: inline-block;
+    overflow: hidden; /* Скрываем всё за контуром */
+
+    img {
+      transition: 1s; /* Время эффекта */
+      display: block;
+
+      &:hover {
+        transform: scale(1.1); /* Увеличиваем масштаб */
+        .hover-image-color {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &-teaser{
+
+    &__title{}
+
+    &__ul{}
+  }
+
+  &-gallery{
+
+    &__title{}
+
+    &__ul{}
+
+    &__description{}
+
+    &__person{}
+
+    &__accent{}
+
+    &__info{}
+  }
+
+}

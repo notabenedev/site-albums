@@ -101,6 +101,11 @@ class AlbumsServiceProvider extends ServiceProvider
         // Наблюдатели.
         $this->addObservers();
 
+        // Assets.
+        $this->publishes([
+            __DIR__ . "/resources/sass" => resource_path("sass/vendor/site-albums"),
+        ], 'public');
+
     }
 
     /**

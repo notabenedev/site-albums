@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row justify-content-start">
                 <div class="col-12 mb-3">
-                    <h1>{{ $album->title }}</h1>
+                    <h1 class="album-gallery__title">{{ $album->title }}</h1>
                 </div>
                 @if (count($album->tags) > 0)
                     <div class="col-12 mb-3">

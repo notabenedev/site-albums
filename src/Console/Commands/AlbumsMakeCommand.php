@@ -22,6 +22,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     {--policies : Export policies}    
     {--only-default :  Fill only default policies} 
     {--observers : Export observers}   
+    {--scss : Export scss}
     {--menu : Create admin menu}
     {--fill : Fill fixed albums from Config}
     ';
@@ -88,6 +89,17 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
     protected $observers = ["AlbumTagObserver"];
 
     /**
+     * Стили.
+     *
+     * @var array
+     */
+    protected $scssIncludes = [
+        "app" => [
+            "site-albums/album",
+        ],
+    ];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -121,6 +133,10 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
 
         if ($this->option("observers") || $all) {
             $this->exportObservers();
+        }
+
+        if ($this->option("scss") || $all) {
+            $this->makeScssIncludes("app");
         }
 
         if ($this->option("menu") || $all) {
