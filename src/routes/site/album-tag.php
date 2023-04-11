@@ -8,5 +8,5 @@ Route::group([
 "as" => "site.album-tags.",
 "prefix" => config("site-albums.albumsSiteUrlName")."/".config("site-albums.albumTagUrlName"),
 ], function () {
-    Route::get("/{tag}", "AlbumController@show")->name("show");
+    Route::get("/{tag}", "AlbumTagController@show")->name("show");
 });

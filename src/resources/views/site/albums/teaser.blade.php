@@ -1,7 +1,7 @@
 <div class="col-12 {{ $grid["cols"] }} mb-3">
     <div class="card card-base h-100 album-teaser">
-        <a href="{{ route("site.albums.show", ['album' => $album]) }}">
-            @if ($album->image)
+        @if ($album->image)
+            <a href="{{ route("site.albums.show", ['album' => $album]) }}">
                 <div class="album-image-scale">
                     @picLazy([
                     "image" => $album->image,
@@ -10,8 +10,8 @@
                     "imgClass" => "card-img-top album-teaser__image",
                     ])
                 </div>
-            @endif
-        </a>
+            </a>
+        @endif
         <div class="card-body album-teaser__title">
             <a href="{{ route("site.albums.show", ['album' => $album]) }}">
                 <h3>{{ $album->title }}</h3>

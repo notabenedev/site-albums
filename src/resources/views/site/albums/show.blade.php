@@ -11,6 +11,20 @@
                 <div class="col-12 mb-3">
                     <h1>{{ $album->title }}</h1>
                 </div>
+                @if (count($album->tags) > 0)
+                    <div class="col-12 mb-3">
+                        <ul class="list-inline album-gallery__ul">
+                            @foreach($album->tags as $tag)
+                                <li class="list-inline-item">
+                                    <a href="{{ route("site.album-tags.show", ["tag" => $tag]) }}" class="text-secondary"
+                                       title="{{ $tag->title }}">
+                                        {{ $tag->title }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @if (! empty($album->description))
                     <div class="col-12 mb-3">
                         <div class="album-gallery__description">
@@ -48,25 +62,7 @@
                 </div>
                 <div class="row justify-content-start">
                 @foreach($gallery as $image)
-                    <div class="col-12 {{ $grid["cols"] }} mb-3">
-                        <a href="{{ route('imagecache', ['template' => 'original', 'filename' => $image->file_name]) }}"
-                            data-lightbox="galleryGroup">
-                            <div class="card card-base h-100">
-                                <div class="hover-image-scale">
-                                    @picLazy([
-                                        "image" => $image,
-                                        "lightbox" => "galleryGroup",
-                                        "template" => "sm-grid-12",
-                                        "grid" => $grid["grid"],
-                                        "imgClass" => "card-img-top",
-                                    ])
-                                </div>
-                                <div class="card-body">
-                                    <h4>{{ $image->name }}</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    @include("site-albums::site.albums.image", ["grid" => $grid, "image" => $image])
                 @endforeach
                 </div>
             @endif

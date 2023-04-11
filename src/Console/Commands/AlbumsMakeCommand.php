@@ -77,7 +77,7 @@ class AlbumsMakeCommand extends BaseConfigModelCommand
      */
     protected $controllers = [
         "Admin" => ["AlbumTagController", "AlbumController"],
-        "Site" => ["AlbumController"],
+        "Site" => ["AlbumTagController", "AlbumController"],
     ];
 
     /**
