@@ -13,7 +13,7 @@
     @php($grid = ["grid" => [], "cols" => "col-md-6 col-lg-3"])
     @foreach($gallery as $image)
         <div class="col-12 {{ $grid["cols"] }} mb-5">
-            <div class="album-benefits__icon mb-3">
+            <div class="album-benefits__icon album-image-scale mb-3">
                 @picLazy([
                 "image" => $image,
                 "template" => "benefit",
