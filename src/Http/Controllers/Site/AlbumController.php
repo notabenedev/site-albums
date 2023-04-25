@@ -23,6 +23,7 @@ class AlbumController extends Controller
                 ]
             ];
         }
+
         $grid = Album::grid(config("site-albums.siteAlbumsGrid", 3));
 
         return  view("site-albums::site.albums.index", [
@@ -44,12 +45,15 @@ class AlbumController extends Controller
 
         $grid = Album::grid(config("site-albums.siteAlbumGalleryGrid", 3));
 
+        $pageMetas = \App\Meta::getByModelKey($album);
+
         return  view("site-albums::site.albums.show", [
                 "album" => $album,
                 "grid" => $grid,
                 "gallery" => $album->images->sortBy('weight'),
                 "image" => $album->image,
                 "siteBreadcrumb" => $siteBreadcrumb,
+                "pageMetas" => $pageMetas,
             ]);
         }
         else
