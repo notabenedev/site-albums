@@ -92,7 +92,7 @@ class AlbumTagActionsManager
             $tag = $routeParams["tag"];
             $breadcrumb[] = (object) [
                 "title" => $tag->title,
-                "url" => route("admin.album-tags.show", ["tag" => $tag]),
+                "url" => route("site.album-tags.show", ["tag" => $tag]),
                 "active" => false,
             ];
         }
@@ -101,7 +101,7 @@ class AlbumTagActionsManager
             $album = $routeParams["album"];
             $breadcrumb[] = (object) [
                 "title" => $album->title,
-                "url" => route("admin.albums.show", ["album" => $album]),
+                "url" => route("site.albums.show", ["album" => $album]),
                 "active" => true,
             ];
         }
