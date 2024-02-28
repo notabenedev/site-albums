@@ -93,7 +93,7 @@ class AlbumTagActionsManager
             $breadcrumb[] = (object) [
                 "title" => $tag->title,
                 "url" => route("site.album-tags.show", ["tag" => $tag]),
-                "active" => false,
+                "active" => true,
             ];
         }
 
