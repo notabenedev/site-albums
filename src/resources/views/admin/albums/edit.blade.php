@@ -86,9 +86,13 @@
                     <div class="form-group">
                         @if($album->image)
                             <div class="d-inline-block">
-                                <img src="{{ route('imagecache', ['template' => 'small', 'filename' =>$album->image->file_name]) }}"
-                                     class="rounded mb-2"
-                                     alt="{{$album->image->name }}">
+                                @pic([
+                                "image" =>  $album->image,
+                                "template" => "small",
+                                "grid" => [
+                                ],
+                                "imgClass" => "rounded mb-2",
+                                ])
                                 <button type="button" class="close ml-1" data-confirm="{{ "delete-form-{$album->id}" }}">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
