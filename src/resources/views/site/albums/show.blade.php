@@ -56,11 +56,6 @@
             </div>
             @if($gallery->count())
                 <div class="row justify-content-start">
-                    <div class="col-12">
-                        <h3>Изображения</h3>
-                    </div>
-                </div>
-                <div class="row justify-content-start">
                 @foreach($gallery as $image)
                     @include("site-albums::site.albums.image", ["grid" => $grid, "image" => $image])
                 @endforeach

@@ -40,6 +40,14 @@ class Album extends Model
 
             $model->priority = $maxWeight + 1;
         });
+
+        static::updating(function (self $model){
+            $model->clearCache();
+        });
+
+        static::deleting(function (self $model){
+            $model->clearCache();
+        });
     }
 
     /**
