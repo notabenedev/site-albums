@@ -12,9 +12,9 @@
 
     @foreach($gallery as $image)
         @if ($loop->first || ($loop->index +1) % 6 == 0 || ($loop->index +1) % 6 == 1 )
-            @php($grid = ["grid" => ["lg-grid-6" => 992, "md-grid-6" => 768, "sm-grid-6" => 576], "cols" => " col-sm-6"])
+            @php($grid = ["grid" => ["xxl-grid-6" => 1400, "xl-grid-6" => 1200, "lg-grid-6" => 992, "md-grid-6" => 768, "sm-grid-6" => 576], "cols" => " col-sm-6"])
         @else
-            @php($grid = ["grid" => ["lg-grid-3" => 992, "md-grid-6" => 768, "sm-grid-6" => 576], "cols" => " col-sm-6 col-lg-3"])
+            @php($grid = ["grid" => ["xxl-grid-3" => 1400, "xl-grid-3" => 1200, "lg-grid-3" => 992, "md-grid-6" => 768, "sm-grid-6" => 576], "cols" => " col-sm-6 col-lg-3"])
         @endif
         @include("site-albums::site.albums.image", ["grid" => $grid, "image" => $image, "hideImageTitle" => true, "lightGroup" => $album->slug."LightGroup"])
     @endforeach

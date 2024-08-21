@@ -31,5 +31,3 @@
                             {--fill : fill fixed albums from Config}
     npm run dev
 
-## Update
-    v0.0.2 Add metas to album tag

@@ -197,7 +197,7 @@ class Album extends Model
      */
     public static function grid(int $grid){
         $cols = $grid === 3 ? "col-sm-6 col-md-4 col-lg-3": "col-sm-6 col-lg-4";
-        $imgGrid = $grid === 3 ? ["lg-grid-3" => 992,"md-grid-4" => 768, "sm-grid-6" => 576] : ["lg-grid-4" => 992, "md-grid-6" => 768, "sm-grid-6" => 576];
+        $imgGrid = $grid === 3 ? ["xxl-grid-3" => 1400, "xl-grid-3"=> 1200, "lg-grid-3" => 992,"md-grid-4" => 768, "sm-grid-6" => 576] : ["xxl-grid-4"=> 1400,"xl-grid-4"=> 1200, "lg-grid-4" => 992, "md-grid-6" => 768, "sm-grid-6" => 576];
         return ["cols" => $cols, "grid" => $imgGrid, "number" => $grid];
     }
 }

@@ -12,7 +12,7 @@
             </div>
             @if (empty($hideImageTitle))
                 <div class="card-body">
-                    <h4>{{ $image->name }}</h4>
+                    <p>{{ $image->name }}</p>
                 </div>
             @endif
         </div>
