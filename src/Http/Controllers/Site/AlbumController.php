@@ -5,12 +5,14 @@ namespace Notabenedev\SiteAlbums\Http\Controllers\Site;
 use App\Album;
 use App\AlbumTag;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Notabenedev\SiteAlbums\Facades\AlbumTagActions;
 use PortedCheese\SeoIntegration\Models\Meta;
 
 class AlbumController extends Controller
 {
-    public function index()
+    const PAGER = 18;
+    public function index( Request $request)
     {
         $siteBreadcrumb = null;
 
@@ -25,9 +27,11 @@ class AlbumController extends Controller
         }
 
         $grid = Album::grid(config("site-albums.siteAlbumsGrid", 3));
-
+        $albums = Album::query()->whereNotNull("published_at")->orderBy("priority")
+            ->paginate(self::PAGER)
+            ->appends($request->input());
         return  view("site-albums::site.albums.index", [
-            "albums" => Album::getAllPublished(),
+            "albums" => $albums,
             "grid" => $grid,
             "siteBreadcrumb" => $siteBreadcrumb,
             "pageMetas" => Meta::getByPageKey(config("site-albums.albumsSiteUrlName")),

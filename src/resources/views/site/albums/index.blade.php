@@ -10,4 +10,7 @@
     @foreach ($albums as $id => $album)
         {!! $album->getTeaserData($grid) !!}
     @endforeach
+    <div class="col-12 my-3">
+        {{ $albums->links() }}
+    </div>
 @endsection
